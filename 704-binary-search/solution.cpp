@@ -14,6 +14,10 @@ public:
             int index = ((right_bound - left_bound) >> 1) + left_bound;
             int index_value = nums[index];
 
+            cout << left_bound << endl;
+            cout << right_bound << endl;
+            cout << index << endl;
+
             if (target < index_value) {
                 if (right_bound == index) {
                     return -1;
@@ -45,7 +49,7 @@ int main(int argc, char **argv) {
     Solution solution;
 
     vector<int> nums({-1,0,3,5,9,12});
-    int target = 9;
+    int target = 12;
 
     int index = solution.search(nums, target);
     cout << index << endl;
