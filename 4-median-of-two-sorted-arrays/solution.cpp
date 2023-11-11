@@ -12,6 +12,7 @@ public:
     }
 };
 
+
 int main(int argc, char **argv) {
     Solution solution;
 
