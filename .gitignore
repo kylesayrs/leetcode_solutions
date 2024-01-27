@@ -1,2 +1,11 @@
+# VS Code
 .vscode
+
+# C++
 *.out
+
+# Rust
+Cargo.lock
+debug/
+target/
+**/*.rs.bk
