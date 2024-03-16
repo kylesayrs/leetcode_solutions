@@ -3,5 +3,5 @@ Runtime
 Beats 100.00% of users with Rust
 
 Memory
-2.58 MB
+2.58MB
 Beats 46.63% of users with Rust
