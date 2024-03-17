@@ -1,6 +1,3 @@
-#[macro_use(queue)]
-extern crate queues;
-
 mod solution;
 
 fn main() {
