@@ -7,7 +7,7 @@ class Solution:
         right = len(nums) - 1
 
         while left < right:
-            # bias left arbitrarily
+            # bias left since we're looking for a min
             middle = (right - left) // 2 + left
             
             # out of order, min must be inbetween
