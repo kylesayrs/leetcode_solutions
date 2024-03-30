@@ -8,6 +8,7 @@ class Solution:
 
         while left < right:
             # bias left since we're looking for a min
+            # if left and right are one apart, we want to check left
             middle = (right - left) // 2 + left
             
             # out of order, min must be inbetween
