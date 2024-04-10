@@ -14,3 +14,6 @@ dfs stack, then you cannot depend on them.
 Using bfs is better, since for this problem you only need to depend on neighbors
 in order of closeness to a 0. Since bfs gets results in order of closeness to 0s,
 this is okay.
+
+Note that there are also two other ways of solve this as outlined here:
+https://leetcode.com/problems/01-matrix/solutions/1369741/c-java-python-bfs-dp-solutions-with-picture-clean-concise-o-1-space/
