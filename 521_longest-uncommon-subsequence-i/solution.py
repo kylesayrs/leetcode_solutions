@@ -9,7 +9,6 @@ class Solution:
         # case order mismatch
             # can use any of the strings, since including it will guarantee not match
 
-
         if a == b:
             return -1
 
