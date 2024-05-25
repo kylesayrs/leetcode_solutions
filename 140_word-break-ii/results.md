@@ -1,7 +1,11 @@
 Runtime
-41ms
-Beats 15.64% of users with Python3
+33ms
+Beats 72.16% of users with Python3
 
 Memory
-16.62MB
-Beats 11.90% of users with Python3
+16.46MB
+Beats 87.62% of users with Python3
+
+First time I submitted the same exact code and got 15th percentile runtime and 11th percentile memory.
+The variance on the statistics for this problem is high
+ 
