@@ -1,88 +1,43 @@
 from typing import List
 
-import queue
-from dataclasses import dataclass
-
-@dataclass
-class Node:
-    node_id: int
-    parents: List[int]
-    children: List[int]
-    num_unprocessed_parents: int
-
-    def __lt__(self, other: "Node"):
-        return self.num_unprocessed_parents < other.num_unprocessed_parents
-
 
 class Solution:
     def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
-        """
-        Edge list to node adjacency (ancestor) map // O(E)
-        Start with "roots"
-        dfs(node):
-            result = dfs(parent) for parent in parents
-
-        node {
-            node_id
-            parents
-            num_unprocessed_parents
-        }
-
-        priority queue, maps nodes to number of unprocessed parents
-        hashmap points to nodes in priority queue
-
-        possible to dequeue a node with unprocessed parents?
-        implies that there exists a parent which is unprocessed who has unprocessed parents
-        said another way, if a graph is acyclic, there must exist a room which has no parents
-        DAGS always have a node which has no parent
-        Removing nodes from a DAG still leaves a DAG
-
-        N + N-1 + N-2 + N-3....
-        (N + 1)N/2
-
-        create a hashmap that maps node_ids to Nodes    // O(N)
-        for each edge, update that node's parents       // O(E)
-
-        for each node, insert into the priority queue   // O(N)
-        while queue is not empty, dequeue               // O(NlogN)
-        for each dequeue, set the result to the
-        concatenation of the results of the parents     // O(N * N)
-        """
-        nodes = {
-            node_id: Node(node_id=node_id, parents=[], children=[], num_unprocessed_parents=0)
-            for node_id in range(n)
-        }
-
+        parents = [[] for index in range(n)]
         for _from, to in edges:
-            nodes[_from].children.append(nodes[to])
-            nodes[to].parents.append(nodes[_from])
-            nodes[to].num_unprocessed_parents += 1
+            parents[to].append(_from)
 
-        pq = queue.PriorityQueue()
-        for node in nodes.values():
-            pq.put(node)
+        topological_sort = []
+        seen = set()
+        def parentless(index: int):
+            nonlocal topological_sort
+            nonlocal seen
 
-        results = [None for _ in range(n)]
-        while not pq.empty():
-            node = pq.get()
-            assert node.num_unprocessed_parents == 0
+            if index in seen:
+                return True
             
-            results[node.node_id] = set()
-            for parent in node.parents:
-                results[node.node_id].add(parent.node_id)
-                for parent_result in results[parent.node_id]:
-                    results[node.node_id].add(parent_result)
+            for parent in parents[index]:
+                if parentless(parent) == False:
+                    seen.add(index)
+                    return False
 
-            for child in node.children:
-                child.num_unprocessed_parents -= 1
+            topological_sort.append(index)
+            seen.add(index)
+            return True
+        
+        for node_index in range(n):
+            parentless(node_index)
 
-        results = [
-            list(sorted(list(result)))
-            for result in results
-        ]
-        print(results)
+        results = [[] for _ in range(n)]
+        for node_index in topological_sort:
+            parent_ancestors = sum([
+                results[parent]
+                for parent in parents[node_index]
+            ], start=[])
+            results[node_index] = list(sorted(list(set(parents[node_index] + parent_ancestors))))
+
         return results
 
 
 if __name__ == "__main__":
-    Solution().getAncestors(2, [[0, 1]])
+    Solution().getAncestors(5, [[0,1],[0,2],[0,3],[0,4],[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]])
