@@ -8,18 +8,21 @@ class Solution:
         # assert len(customers) == len(grumpy)
 
         current_value = 0
-        max_value = -math.inf  # change if customers[i] < 0
+        max_value = -math.inf
         for right in range(len(customers)):
+            # update right
             if grumpy[right]:
                 current_value += customers[right]
 
+            # store value
             max_value = max(max_value, current_value)
 
+            # full window
             if right + 1 >= minutes:
                 # could also store max here if only applies to full windows
 
-                left = right - minutes + 1
                 # set up for next iteration
+                left = right - minutes + 1
                 if grumpy[left]:
                     current_value -= customers[left]
 
