@@ -3,7 +3,6 @@ from typing import List
 
 class Solution:
     def dfs(self, index: int, combination: List[int]):
-        print(f"dfs({index}, {combination})")
         if index >= len(self.candidates):
             return
     
